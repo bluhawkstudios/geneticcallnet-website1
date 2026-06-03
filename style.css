@@ -222,7 +222,7 @@ img { max-width: 100%; }
 /* ─── HERO ─── */
 .hero {
   min-height: 100vh;
-  background: var(--navy);
+  background: url('hero-bg.png') center center / cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -231,16 +231,8 @@ img { max-width: 100%; }
   overflow: hidden;
 }
 
-.hero-bg { position: absolute; inset: 0; pointer-events: none; }
-.hero-circle {
-  position: absolute;
-  border-radius: 50%;
-  background: var(--gold);
-  opacity: 0.07;
-}
-.c1 { width: 600px; height: 600px; top: -200px; right: -200px; }
-.c2 { width: 400px; height: 400px; bottom: -100px; left: -100px; opacity: 0.05; }
-.c3 { width: 200px; height: 200px; top: 40%; right: 15%; opacity: 0.04; }
+.hero-bg { display: none; }
+.hero-circle { display: none; }
 
 .hero-content { max-width: 1180px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
 
