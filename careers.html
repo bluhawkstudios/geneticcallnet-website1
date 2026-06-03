@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers – Genetic Callnet</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .careers-intro { max-width: 700px; }
+    .careers-intro p { font-size: 1.05rem; line-height: 1.85; margin-top: 0.8rem; }
+
+    .openings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .job-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .job-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: var(--transition);
+    }
+    .job-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .job-card:hover::after { transform: scaleY(1); }
+
+    .job-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+    .job-title { font-size: 1.15rem; }
+    .job-type {
+      background: #f0e8d8;
+      border: 1px solid #e0c68a;
+      color: var(--gold-dim);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .job-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .job-desc { font-size: 0.92rem; line-height: 1.75; }
+
+    .job-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .job-skills span {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--navy-mid);
+    }
+
+    .job-apply {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gold-dim);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: auto;
+      transition: gap var(--transition);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      padding: 0;
+    }
+    .job-apply:hover { gap: 0.75rem; }
+
+    /* WHY JOIN */
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .perk-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .perk-icon { font-size: 2.2rem; display: block; margin-bottom: 1rem; }
+    .perk-card h4 { margin-bottom: 0.5rem; }
+    .perk-card p { font-size: 0.88rem; }
+
+    /* APPLY FORM MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(7,17,28,0.75);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 560px;
+      width: 100%;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: fadeUp 0.3s ease both;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal h3 { margin-bottom: 0.3rem; }
+    .modal .modal-role { color: var(--gold-dim); font-weight: 600; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .modal .contact-form { gap: 1rem; }
+    .modal .form-row { gap: 1rem; }
+
+    @media (max-width: 900px) {
+      .openings-grid { grid-template-columns: 1fr; }
+      .perks-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .perks-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo"><img src="GCLogo-transparent.png" alt="Genetic Callnet" class="logo-img" /></a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-item" id="about-dropdown">
+          <button class="dropdown-toggle">About</button>
+          <div class="dropdown-menu">
+            <a href="about.html">About Us</a>
+            <a href="why-us.html">Why Genetic Callnet</a>
+            <a href="leadership.html">Leadership Team</a>
+          </div>
+        </li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="clients.html">Clients</a></li>
+        <li><a href="careers.html" class="active">Careers</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+      <p class="hero-eyebrow">Join Our Team</p>
+      <h1>Build Your Career at<br/><em>Genetic Callnet</em></h1>
+      <p class="hero-sub" style="max-width:580px">We are always looking for passionate, driven individuals who want to make a real difference in how businesses and people connect.</p>
+    </div>
+  </section>
+
+  <!-- WHY JOIN -->
+  <section class="section" style="background:var(--bg-alt)">
+    <div class="container">
+      <span class="tag">Why Work With Us</span>
+      <h2 style="margin-bottom:2.5rem">A Place Where Careers Thrive</h2>
+      <div class="perks-grid">
+        <div class="perk-card">
+          <span class="perk-icon">🚀</span>
+          <h4>Fast-Track Growth</h4>
+          <p>Performance-driven culture with clear pathways for promotion and skill development at every level.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">🌏</span>
+          <h4>Global Exposure</h4>
+          <p>Work with clients and candidates across India, UAE, and international markets from day one.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">🧠</span>
+          <h4>Continuous Learning</h4>
+          <p>Access to training programs, industry certifications, and mentorship from 20+ year veterans.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">🤝</span>
+          <h4>Collaborative Culture</h4>
+          <p>A close-knit, supportive team where ideas are heard and contributions are recognised.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">💡</span>
+          <h4>Innovation-First</h4>
+          <p>We embrace AI, technology, and new recruitment methodologies — you'll always be ahead of the curve.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">⚖️</span>
+          <h4>Work-Life Balance</h4>
+          <p>Flexible working arrangements and wellness programs that keep you at your best.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN POSITIONS -->
+  <section class="section">
+    <div class="container">
+      <span class="tag">Open Positions</span>
+      <h2>Current Openings</h2>
+      <p class="section-sub">Explore opportunities across our India and UAE offices. Don't see a role that fits? Send us your profile anyway — we're always open to great talent.</p>
+
+      <div class="openings-grid">
+
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">Senior Recruitment Consultant</h3>
+            <span class="job-type">Full-Time</span>
+          </div>
+          <div class="job-meta">
+            <span>📍 Mumbai, India</span>
+            <span>🏢 On-site</span>
+            <span>🎯 3–6 Years Exp.</span>
+          </div>
+          <p class="job-desc">Drive end-to-end recruitment for clients across BFSI, IT, and Manufacturing. Own client relationships, build talent pipelines, and consistently deliver quality placements within SLA.</p>
+          <div class="job-skills">
+            <span>End-to-End Recruitment</span><span>Client Management</span><span>Sourcing</span><span>BFSI / IT</span>
+          </div>
+          <button class="job-apply" onclick="openModal('Senior Recruitment Consultant – Mumbai')">Apply Now →</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">Talent Acquisition Specialist</h3>
+            <span class="job-type">Full-Time</span>
+          </div>
+          <div class="job-meta">
+            <span>📍 Dubai, UAE</span>
+            <span>🏢 Hybrid</span>
+            <span>🎯 2–5 Years Exp.</span>
+          </div>
+          <p class="job-desc">Support RPO and retained search mandates for our UAE-based clients. Source, screen, and present candidates for mid-to-senior roles across multiple sectors.</p>
+          <div class="job-skills">
+            <span>RPO</span><span>Executive Hiring</span><span>UAE Market</span><span>ATS Tools</span>
+          </div>
+          <button class="job-apply" onclick="openModal('Talent Acquisition Specialist – Dubai')">Apply Now →</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">Business Development Executive</h3>
+            <span class="job-type">Full-Time</span>
+          </div>
+          <div class="job-meta">
+            <span>📍 Mumbai, India</span>
+            <span>🏢 Hybrid</span>
+            <span>🎯 1–3 Years Exp.</span>
+          </div>
+          <p class="job-desc">Identify and engage new client prospects, present Genetic Callnet's service offerings, and build a strong commercial pipeline. Ideal for someone with a passion for business and people.</p>
+          <div class="job-skills">
+            <span>B2B Sales</span><span>HR Industry</span><span>CRM</span><span>Lead Generation</span>
+          </div>
+          <button class="job-apply" onclick="openModal('Business Development Executive – Mumbai')">Apply Now →</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">IT Recruiter</h3>
+            <span class="job-type">Full-Time</span>
+          </div>
+          <div class="job-meta">
+            <span>📍 Mumbai, India</span>
+            <span>🏢 On-site / Hybrid</span>
+            <span>🎯 1–4 Years Exp.</span>
+          </div>
+          <p class="job-desc">Specialise in sourcing technology talent across Product, Engineering, DevOps, QA, and SAP. Partner with IT clients to understand hiring needs and build strong candidate networks.</p>
+          <div class="job-skills">
+            <span>IT Recruitment</span><span>Tech Sourcing</span><span>SAP</span><span>Boolean Search</span>
+          </div>
+          <button class="job-apply" onclick="openModal('IT Recruiter – Mumbai')">Apply Now →</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">HR Operations Executive</h3>
+            <span class="job-type">Full-Time</span>
+          </div>
+          <div class="job-meta">
+            <span>📍 Mumbai, India</span>
+            <span>🏢 On-site</span>
+            <span>🎯 1–3 Years Exp.</span>
+          </div>
+          <p class="job-desc">Support payroll processing, background verification coordination, compliance tracking, and onboarding operations for contract staffing clients.</p>
+          <div class="job-skills">
+            <span>Payroll</span><span>Compliance</span><span>BGV</span><span>MS Excel</span>
+          </div>
+          <button class="job-apply" onclick="openModal('HR Operations Executive – Mumbai')">Apply Now →</button>
+        </div>
+
+        <div class="job-card" style="border-style:dashed;background:#fffde6;border-color:#f5c800">
+          <div class="job-header">
+            <h3 class="job-title">Don't See Your Role?</h3>
+            <span class="job-type">Open Application</span>
+          </div>
+          <div class="job-meta">
+            <span>📍 India / UAE</span>
+            <span>🌐 All Functions</span>
+          </div>
+          <p class="job-desc">We're always on the lookout for exceptional talent. If you believe you can add value to Genetic Callnet, send us your profile and let's start a conversation.</p>
+          <button class="job-apply" onclick="openModal('General / Open Application')">Send Your Profile →</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3>Apply for a Role</h3>
+      <p class="modal-role" id="modal-role-title">Position</p>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your Name" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="+91 / +971" />
+          </div>
+          <div class="form-group">
+            <label>Current Location</label>
+            <input type="text" placeholder="City, Country" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Years of Experience</label>
+          <select>
+            <option>Less than 1 year</option>
+            <option>1–3 years</option>
+            <option>3–6 years</option>
+            <option>6–10 years</option>
+            <option>10+ years</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>LinkedIn Profile URL</label>
+          <input type="url" placeholder="https://linkedin.com/in/yourprofile" />
+        </div>
+        <div class="form-group">
+          <label>Cover Note</label>
+          <textarea rows="4" placeholder="Tell us why you'd be a great fit at Genetic Callnet..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-full" id="modal-submit-btn" onclick="handleModalSubmit(this)">Submit Application →</button>
+        <p id="modal-success" style="display:none;color:#b89400;margin-top:0.5rem;font-weight:500;text-align:center">✅ Application received! We'll be in touch soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <div class="container cta-inner">
+      <div><h2>Questions about working with us?</h2><p>Reach out and our team will be happy to help.</p></div>
+      <a href="contact.html" class="btn btn-white">Get in Touch</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo-light"><img src="GCLogo-transparent.png" alt="Genetic Callnet" class="logo-img logo-img--footer" /></a>
+        <p>Bridging businesses and exceptional talent since 2007.</p>
+      </div>
+      <div class="footer-links"><h4>Pages</h4><ul>
+        <li><a href="about.html">About Us</a></li><li><a href="why-us.html">Why Genetic Callnet</a></li>
+        <li><a href="leadership.html">Leadership</a></li><li><a href="services.html">Services</a></li>
+        <li><a href="clients.html">Clients</a></li>
+        <li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-contact"><h4>Get in Touch</h4>
+        <p>🇮🇳 +91 98339 36564</p><p>🇦🇪 +971 58514 3889</p>
+        <p>✉️ unnati@geneticcallnet.com</p><p>🌐 www.geneticcallnet.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Genetic Callnet. All rights reserved.</p></div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    function openModal(role) {
+      document.getElementById('modal-role-title').textContent = role;
+      document.getElementById('modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // reset
+      document.getElementById('modal-success').style.display = 'none';
+      const btn = document.getElementById('modal-submit-btn');
+      btn.style.display = '';
+      btn.disabled = false;
+      btn.textContent = 'Submit Application →';
+    }
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modal-overlay')) closeModal();
+    }
+    function handleModalSubmit(btn) {
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.style.display = 'none';
+        document.getElementById('modal-success').style.display = 'block';
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
