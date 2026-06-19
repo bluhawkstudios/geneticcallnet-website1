@@ -100,23 +100,6 @@
     }
     .job-apply:hover { gap: 0.75rem; }
 
-    /* WHY JOIN */
-    .perks-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .perk-card {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem 1.5rem;
-      text-align: center;
-    }
-    .perk-icon { font-size: 2.2rem; display: block; margin-bottom: 1rem; }
-    .perk-card h4 { margin-bottom: 0.5rem; }
-    .perk-card p { font-size: 0.88rem; }
-
     /* APPLY FORM MODAL */
     .modal-overlay {
       display: none;
@@ -158,10 +141,6 @@
 
     @media (max-width: 900px) {
       .openings-grid { grid-template-columns: 1fr; }
-      .perks-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 640px) {
-      .perks-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -199,156 +178,135 @@
     </div>
   </section>
 
-  <!-- WHY JOIN -->
-  <section class="section" style="background:var(--bg-alt)">
-    <div class="container">
-      <span class="tag">Why Work With Us</span>
-      <h2 style="margin-bottom:2.5rem">A Place Where Careers Thrive</h2>
-      <div class="perks-grid">
-        <div class="perk-card">
-          <span class="perk-icon">🚀</span>
-          <h4>Fast-Track Growth</h4>
-          <p>Performance-driven culture with clear pathways for promotion and skill development at every level.</p>
-        </div>
-        <div class="perk-card">
-          <span class="perk-icon">🌏</span>
-          <h4>Global Exposure</h4>
-          <p>Work with clients and candidates across India, UAE, and international markets from day one.</p>
-        </div>
-        <div class="perk-card">
-          <span class="perk-icon">🧠</span>
-          <h4>Continuous Learning</h4>
-          <p>Access to training programs, industry certifications, and mentorship from 20+ year veterans.</p>
-        </div>
-        <div class="perk-card">
-          <span class="perk-icon">🤝</span>
-          <h4>Collaborative Culture</h4>
-          <p>A close-knit, supportive team where ideas are heard and contributions are recognised.</p>
-        </div>
-        <div class="perk-card">
-          <span class="perk-icon">💡</span>
-          <h4>Innovation-First</h4>
-          <p>We embrace AI, technology, and new recruitment methodologies — you'll always be ahead of the curve.</p>
-        </div>
-        <div class="perk-card">
-          <span class="perk-icon">⚖️</span>
-          <h4>Work-Life Balance</h4>
-          <p>Flexible working arrangements and wellness programs that keep you at your best.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- OPEN POSITIONS -->
+  <!-- OPEN POSITIONS (Live from iSmartRecruit ATS) -->
   <section class="section">
     <div class="container">
       <span class="tag">Open Positions</span>
       <h2>Current Openings</h2>
-      <p class="section-sub">Explore opportunities across our India and UAE offices. Don't see a role that fits? Send us your profile anyway — we're always open to great talent.</p>
+      <p class="section-sub">Explore live opportunities across our India and UAE offices. Don't see a role that fits? Reach out anyway — we're always open to great talent.</p>
 
-      <div class="openings-grid">
-
-        <div class="job-card">
-          <div class="job-header">
-            <h3 class="job-title">Senior Recruitment Consultant</h3>
-            <span class="job-type">Full-Time</span>
+      <div class="ats-widget-wrap">
+        <div class="open-jobwebsite">
+          <div class="col-md-12 open-jobwebsite-srch-bar">
+            <div class="search-bar-item" style="width: 100%;display: flex;justify-content: center;">
+              <div class="search-bar">
+                <input type="text" placeholder="Enter text to filter" id="textbox_id" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
+              </div>
+              <div class="search-bar-cta" align="center">
+                <button class="btn btn-default" onclick="parameter()" style="height: 35px;width: 50px;box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.08);">
+                  <i class="ui-icon-search" style="font-size: 18px;color: #c6c6c6;"></i>
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="job-meta">
-            <span>📍 Mumbai, India</span>
-            <span>🏢 On-site</span>
-            <span>🎯 3–6 Years Exp.</span>
-          </div>
-          <p class="job-desc">Drive end-to-end recruitment for clients across BFSI, IT, and Manufacturing. Own client relationships, build talent pipelines, and consistently deliver quality placements within SLA.</p>
-          <div class="job-skills">
-            <span>End-to-End Recruitment</span><span>Client Management</span><span>Sourcing</span><span>BFSI / IT</span>
-          </div>
-          <button class="job-apply" onclick="openModal('Senior Recruitment Consultant – Mumbai')">Apply Now →</button>
         </div>
-
-        <div class="job-card">
-          <div class="job-header">
-            <h3 class="job-title">Talent Acquisition Specialist</h3>
-            <span class="job-type">Full-Time</span>
-          </div>
-          <div class="job-meta">
-            <span>📍 Dubai, UAE</span>
-            <span>🏢 Hybrid</span>
-            <span>🎯 2–5 Years Exp.</span>
-          </div>
-          <p class="job-desc">Support RPO and retained search mandates for our UAE-based clients. Source, screen, and present candidates for mid-to-senior roles across multiple sectors.</p>
-          <div class="job-skills">
-            <span>RPO</span><span>Executive Hiring</span><span>UAE Market</span><span>ATS Tools</span>
-          </div>
-          <button class="job-apply" onclick="openModal('Talent Acquisition Specialist – Dubai')">Apply Now →</button>
-        </div>
-
-        <div class="job-card">
-          <div class="job-header">
-            <h3 class="job-title">Business Development Executive</h3>
-            <span class="job-type">Full-Time</span>
-          </div>
-          <div class="job-meta">
-            <span>📍 Mumbai, India</span>
-            <span>🏢 Hybrid</span>
-            <span>🎯 1–3 Years Exp.</span>
-          </div>
-          <p class="job-desc">Identify and engage new client prospects, present Genetic Callnet's service offerings, and build a strong commercial pipeline. Ideal for someone with a passion for business and people.</p>
-          <div class="job-skills">
-            <span>B2B Sales</span><span>HR Industry</span><span>CRM</span><span>Lead Generation</span>
-          </div>
-          <button class="job-apply" onclick="openModal('Business Development Executive – Mumbai')">Apply Now →</button>
-        </div>
-
-        <div class="job-card">
-          <div class="job-header">
-            <h3 class="job-title">IT Recruiter</h3>
-            <span class="job-type">Full-Time</span>
-          </div>
-          <div class="job-meta">
-            <span>📍 Mumbai, India</span>
-            <span>🏢 On-site / Hybrid</span>
-            <span>🎯 1–4 Years Exp.</span>
-          </div>
-          <p class="job-desc">Specialise in sourcing technology talent across Product, Engineering, DevOps, QA, and SAP. Partner with IT clients to understand hiring needs and build strong candidate networks.</p>
-          <div class="job-skills">
-            <span>IT Recruitment</span><span>Tech Sourcing</span><span>SAP</span><span>Boolean Search</span>
-          </div>
-          <button class="job-apply" onclick="openModal('IT Recruiter – Mumbai')">Apply Now →</button>
-        </div>
-
-        <div class="job-card">
-          <div class="job-header">
-            <h3 class="job-title">HR Operations Executive</h3>
-            <span class="job-type">Full-Time</span>
-          </div>
-          <div class="job-meta">
-            <span>📍 Mumbai, India</span>
-            <span>🏢 On-site</span>
-            <span>🎯 1–3 Years Exp.</span>
-          </div>
-          <p class="job-desc">Support payroll processing, background verification coordination, compliance tracking, and onboarding operations for contract staffing clients.</p>
-          <div class="job-skills">
-            <span>Payroll</span><span>Compliance</span><span>BGV</span><span>MS Excel</span>
-          </div>
-          <button class="job-apply" onclick="openModal('HR Operations Executive – Mumbai')">Apply Now →</button>
-        </div>
-
-        <div class="job-card" style="border-style:dashed;background:#fffde6;border-color:#f5c800">
-          <div class="job-header">
-            <h3 class="job-title">Don't See Your Role?</h3>
-            <span class="job-type">Open Application</span>
-          </div>
-          <div class="job-meta">
-            <span>📍 India / UAE</span>
-            <span>🌐 All Functions</span>
-          </div>
-          <p class="job-desc">We're always on the lookout for exceptional talent. If you believe you can add value to Genetic Callnet, send us your profile and let's start a conversation.</p>
-          <button class="job-apply" onclick="openModal('General / Open Application')">Send Your Profile →</button>
-        </div>
-
+        <div id="myFirstWidget"></div>
       </div>
+
+      <div class="open-app-cta">
+        <p>Don't see a role that fits? We're always open to great talent.</p>
+        <button class="btn btn-outline" onclick="openModal('General / Open Application')">Send Your Profile →</button>
+      </div>
+
     </div>
   </section>
+
+  <!-- iSmartRecruit ATS Widget Assets -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://app.ismartrecruit.com/javax.faces.resource/theme.css.xhtml?ln=primefaces-sam" />
+  <link type="text/css" rel="stylesheet" href="https://app.ismartrecruit.com/javax.faces.resource/fa/font-awesome.css.xhtml" />
+  <link type="text/css" rel="stylesheet" href="https://app.ismartrecruit.com/javax.faces.resource/font-awesome.css.xhtml?ln=css" />
+  <link type="text/css" rel="stylesheet" href="https://app.ismartrecruit.com/javax.faces.resource/ik.css.xhtml?ln=css" />
+  <link type="text/css" rel="stylesheet" href="https://app.ismartrecruit.com/javax.faces.resource/components.css.xhtml?ln=primefaces&amp;v=6.1" />
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+  <script type="text/javascript" src="https://app.ismartrecruit.com/javax.faces.resource/core.js.xhtml"></script>
+  <script type="text/javascript" src="https://app.ismartrecruit.com/javax.faces.resource/components.js.xhtml"></script>
+  <script type="text/javascript">
+    var str = " ";
+    var test2 = "https://app.ismartrecruit.com/openJobWebsite?tenantId=E7pZ2VuZXRpY2NhbGxuZXQuY29tX2lqVnpscVpWemkQ9e&view=grid&col=2&lang=en";
+    function parameter() {
+      str = document.getElementById('textbox_id').value;
+      str = str.replaceAll(" ", "00000");
+      test2 = "https://app.ismartrecruit.com/openJobWebsite?tenantId=E7pZ2VuZXRpY2NhbGxuZXQuY29tX2lqVnpscVpWemkQ9e&view=grid&col=2&lang=en&filterPara=" + str;
+      $("#myFirstWidget").load(test2);
+    }
+    String.prototype.replaceAll = function(target, replacement) {
+      return this.split(target).join(replacement);
+    };
+  </script>
+  <script type="text/javascript" src="https://app.ismartrecruit.com/js/applyNowWebsite.js"></script>
+  <script type="text/javascript">
+    var wage = document.getElementById("textbox_id");
+    wage.addEventListener("keydown", function (e) {
+      if (e.keyCode === 13) { parameter(); }
+    });
+  </script>
+  <script type="text/javascript">
+    // Strip any inline blue background/hover styles the ATS widget injects,
+    // so our CSS override always wins — runs once on load and again after
+    // any search-filter reload.
+    function cleanAtsWidgetStyles() {
+      var widget = document.getElementById('myFirstWidget');
+      if (!widget) return;
+      widget.querySelectorAll('.ui-datagrid-column').forEach(function (col) {
+        col.style.removeProperty('background');
+        col.style.removeProperty('background-color');
+      });
+    }
+    var atsWidgetObserver = new MutationObserver(cleanAtsWidgetStyles);
+    var atsWidgetTarget = document.getElementById('myFirstWidget');
+    if (atsWidgetTarget) {
+      atsWidgetObserver.observe(atsWidgetTarget, { childList: true, subtree: true });
+    }
+    window.addEventListener('load', cleanAtsWidgetStyles);
+  </script>
+  <style>
+    /* Override iSmartRecruit's default blue hover with our brand colour */
+    .open-jobwebsite .ui-g .ui-datagrid-column:hover {
+      background: #fffbe6 !important;
+    }
+    .ats-widget-wrap { margin-top: 2rem; }
+    .open-jobwebsite-srch-bar { margin-bottom: 2rem; }
+    .search-bar { flex: 1; max-width: 480px; }
+    .search-bar input#textbox_id {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .search-bar input#textbox_id:focus { border-color: var(--gold); }
+    .search-bar-cta button {
+      background: var(--gold);
+      border: none;
+      border-radius: 8px;
+      margin-left: 0.6rem;
+      cursor: pointer;
+    }
+
+    /* Standardize job listing box sizing inside the ATS widget */
+    #myFirstWidget .ui-datagrid-column {
+      display: flex !important;
+      flex-direction: column;
+      min-height: 110px;
+      height: 100%;
+      box-sizing: border-box;
+      transition: background 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    #myFirstWidget .ui-datagrid-column:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+    }
+    #myFirstWidget .ui-datagrid-content,
+    #myFirstWidget .ui-g {
+      align-items: stretch !important;
+    }
+    #myFirstWidget .ui-datagrid-column * {
+      overflow-wrap: break-word;
+    }
+  </style>
 
   <!-- APPLICATION MODAL -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
