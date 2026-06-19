@@ -214,7 +214,11 @@
     function handleHeroSearch() {
       const val = document.getElementById('heroSearch').value.trim();
       if (val) {
-        window.location.href = 'careers.html?q=' + encodeURIComponent(val);
+        // Match the iSmartRecruit ATS widget's own filter format (spaces -> "00000")
+        const filterStr = val.replace(/ /g, '00000');
+        window.location.href = 'careers.html?filterPara=' + encodeURIComponent(filterStr);
+      } else {
+        window.location.href = 'careers.html';
       }
     }
     document.getElementById('heroSearch').addEventListener('keydown', function(e) {

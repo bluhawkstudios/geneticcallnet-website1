@@ -95,7 +95,7 @@
       cursor: pointer;
       background: none;
       border: none;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-main);
       padding: 0;
     }
     .job-apply:hover { gap: 0.75rem; }
@@ -260,12 +260,42 @@
     }
     window.addEventListener('load', cleanAtsWidgetStyles);
   </script>
+  <script type="text/javascript">
+    // If arriving from the homepage search bar with a ?filterPara= value,
+    // pre-fill the search box and auto-run the same filter the ATS widget uses.
+    (function () {
+      var urlParams = new URLSearchParams(window.location.search);
+      var incomingFilter = urlParams.get('filterPara');
+      if (incomingFilter) {
+        var displayValue = incomingFilter.replace(/00000/g, ' ');
+        var inputEl = document.getElementById('textbox_id');
+        if (inputEl) {
+          inputEl.value = displayValue;
+        }
+        str = incomingFilter;
+        test2 = "https://app.ismartrecruit.com/openJobWebsite?tenantId=E7pZ2VuZXRpY2NhbGxuZXQuY29tX2lqVnpscVpWemkQ9e&view=grid&col=2&lang=en&filterPara=" + incomingFilter;
+        $("#myFirstWidget").load(test2, cleanAtsWidgetStyles);
+      }
+    })();
+  </script>
   <style>
     /* Override iSmartRecruit's default blue hover with our brand colour */
     .open-jobwebsite .ui-g .ui-datagrid-column:hover {
       background: #fffbe6 !important;
     }
     .ats-widget-wrap { margin-top: 2rem; }
+
+    /* Re-assert Century Gothic on our own page content — the iSmartRecruit
+       ATS widget's PrimeFaces stylesheets can leak a global font reset.
+       The widget itself (#myFirstWidget) is left untouched so its icon
+       fonts (Font Awesome) keep rendering correctly. */
+    .page-hero, .page-hero * ,
+    .footer, .footer * ,
+    .nav, .nav * ,
+    .careers-intro, .careers-intro * ,
+    .open-app-cta, .open-app-cta * {
+      font-family: var(--font-main) !important;
+    }
     .open-jobwebsite-srch-bar { margin-bottom: 2rem; }
     .search-bar { flex: 1; max-width: 480px; }
     .search-bar input#textbox_id {

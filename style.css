@@ -280,7 +280,7 @@ img { max-width: 100%; }
 /* ─── PAGE HERO ─── */
 .page-hero {
   background: var(--navy);
-  padding: 9rem 2rem 5rem;
+  padding: 6.5rem 2rem 2.8rem;
   position: relative;
   overflow: hidden;
 }
@@ -291,9 +291,9 @@ img { max-width: 100%; }
 }
 
 .page-hero .container { position: relative; z-index: 1; }
-.page-hero h1 { color: var(--white); margin-bottom: 1rem; }
+.page-hero h1 { color: var(--white); margin-bottom: 0.8rem; font-size: clamp(1.9rem, 4vw, 3rem); }
 .page-hero h1 em { color: var(--gold); }
-.page-hero .hero-sub { color: rgba(255,255,255,0.65); }
+.page-hero .hero-sub { color: rgba(255,255,255,0.65); margin-bottom: 0; }
 
 /* ─── TWO COLUMN ─── */
 .two-col {
