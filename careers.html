@@ -112,7 +112,7 @@
       padding: 2rem;
     }
     .modal-overlay.open { display: flex; }
-    .modal {
+    .application-dialog {
       background: var(--white);
       border-radius: var(--radius-lg);
       padding: 2.5rem;
@@ -123,7 +123,7 @@
       overflow-y: auto;
       animation: fadeUp 0.3s ease both;
     }
-    .modal-close {
+    .application-dialog-close {
       position: absolute;
       top: 1.2rem; right: 1.5rem;
       background: none;
@@ -133,11 +133,11 @@
       color: var(--text-muted);
       line-height: 1;
     }
-    .modal-close:hover { color: var(--text); }
-    .modal h3 { margin-bottom: 0.3rem; }
-    .modal .modal-role { color: var(--gold-dim); font-weight: 600; font-size: 0.9rem; margin-bottom: 1.5rem; }
-    .modal .contact-form { gap: 1rem; }
-    .modal .form-row { gap: 1rem; }
+    .application-dialog-close:hover { color: var(--text); }
+    .application-dialog h3 { margin-bottom: 0.3rem; }
+    .application-dialog .modal-role { color: var(--gold-dim); font-weight: 600; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .application-dialog .contact-form { gap: 1rem; }
+    .application-dialog .form-row { gap: 1rem; }
 
     @media (max-width: 900px) {
       .openings-grid { grid-template-columns: 1fr; }
@@ -169,7 +169,7 @@
   </nav>
 
   <!-- HERO -->
-  <section class="page-hero">
+  <section class="page-hero careers-page-hero">
     <div class="page-hero-bg"></div>
     <div class="container">
       <p class="hero-eyebrow">Join Our Team</p>
@@ -179,33 +179,40 @@
   </section>
 
   <!-- OPEN POSITIONS (Live from iSmartRecruit ATS) -->
-  <section class="section">
+  <section class="section careers-openings-section">
     <div class="container">
       <span class="tag">Open Positions</span>
-      <h2>Current Openings</h2>
-      <p class="section-sub">Explore live opportunities across our India and UAE offices. Don't see a role that fits? Reach out anyway — we're always open to great talent.</p>
+      <div class="careers-heading-row">
+        <div class="careers-heading-copy">
+          <h2>Current Openings</h2>
+          <p class="section-sub">Explore live opportunities across our India and UAE offices.</p>
+        </div>
+        <div class="open-app-cta">
+          <span class="open-app-prompt">Don't see the right role?</span>
+          <a
+            href="#application-modal"
+            class="btn btn-primary"
+            id="open-application-btn"
+            role="button"
+            onclick="document.getElementById('modal-role-title').textContent='General / Open Application';document.getElementById('application-modal').classList.add('open');document.body.style.overflow='hidden';return false;"
+          >Send Your Profile →</a>
+        </div>
+      </div>
 
       <div class="ats-widget-wrap">
-        <div class="open-jobwebsite">
-          <div class="col-md-12 open-jobwebsite-srch-bar">
-            <div class="search-bar-item" style="width: 100%;display: flex;justify-content: center;">
-              <div class="search-bar">
+        <div class="ats-search-shell">
+          <div class="ats-search-row">
+              <div class="ats-search-field">
                 <input type="text" placeholder="Enter text to filter" id="textbox_id" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
               </div>
-              <div class="search-bar-cta" align="center">
+              <div class="ats-search-action">
                 <button class="btn btn-default" onclick="parameter()" style="height: 35px;width: 50px;box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.08);">
                   <i class="ui-icon-search" style="font-size: 18px;color: #c6c6c6;"></i>
                 </button>
               </div>
-            </div>
           </div>
         </div>
         <div id="myFirstWidget"></div>
-      </div>
-
-      <div class="open-app-cta">
-        <p>Don't see a role that fits? We're always open to great talent.</p>
-        <button class="btn btn-outline" onclick="openModal('General / Open Application')">Send Your Profile →</button>
       </div>
 
     </div>
@@ -296,92 +303,162 @@
     .open-app-cta, .open-app-cta * {
       font-family: var(--font-main) !important;
     }
-    .open-jobwebsite-srch-bar { margin-bottom: 2rem; }
-    .search-bar { flex: 1; max-width: 480px; }
-    .search-bar input#textbox_id {
+    .ats-search-shell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 92px;
+      margin-bottom: 2rem;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--canvas);
+    }
+    .ats-search-row {
+      display: flex;
+      width: min(100%, 700px) !important;
+      height: 52px;
+      align-items: center;
+      justify-content: center !important;
+      margin: 0 auto;
+    }
+    .ats-search-field { flex: 1; height: 52px; }
+    .ats-search-field input#textbox_id {
+      display: block;
       width: 100%;
-      padding: 0.85rem 1.2rem;
+      height: 52px;
+      margin: 0 !important;
+      padding: 0 1.2rem;
       border: 1.5px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       font-family: var(--font-main);
       font-size: 0.95rem;
+      line-height: 52px;
       outline: none;
       transition: border-color 0.2s ease;
     }
-    .search-bar input#textbox_id:focus { border-color: var(--gold); }
-    .search-bar-cta button {
+    .ats-search-field input#textbox_id:focus { border-color: var(--gold); }
+    .ats-search-action {
+      display: flex;
+      height: 52px;
+      align-items: stretch;
+      margin-left: 0.75rem;
+    }
+    .ats-search-action button {
+      display: grid;
+      width: 52px !important;
+      height: 52px !important;
+      place-items: center;
+      padding: 0 !important;
       background: var(--gold);
       border: none;
-      border-radius: 8px;
-      margin-left: 0.6rem;
+      border-radius: 12px;
+      margin: 0 !important;
       cursor: pointer;
+    }
+    .ats-search-action button .ui-icon-search {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      place-items: center;
+      line-height: 1 !important;
+    }
+
+    @media (max-width: 640px) {
+      .ats-search-shell { min-height: 84px; padding: 14px; }
+      .ats-search-row { width: 100% !important; }
     }
 
     /* Standardize job listing box sizing inside the ATS widget */
+    #myFirstWidget {
+      width: 100%;
+      margin: 0;
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--canvas);
+      box-sizing: border-box;
+    }
+    #myFirstWidget .ui-datagrid,
+    #myFirstWidget .ui-datagrid-content,
+    #myFirstWidget .ui-widget-content {
+      width: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      box-sizing: border-box;
+    }
+    #myFirstWidget .ui-g {
+      display: flex !important;
+      width: auto !important;
+      margin: -10px !important;
+      padding: 0 !important;
+      align-items: stretch !important;
+      box-sizing: border-box;
+    }
+    #myFirstWidget .ui-g > [class*="ui-g-"] {
+      margin: 0 !important;
+      padding: 10px !important;
+      box-sizing: border-box;
+    }
     #myFirstWidget .ui-datagrid-column {
       display: flex !important;
       flex-direction: column;
       min-height: 110px;
       height: 100%;
+      margin: 0 !important;
+      padding: 16px !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      background: var(--white) !important;
       box-sizing: border-box;
       transition: background 0.2s ease, box-shadow 0.2s ease !important;
     }
     #myFirstWidget .ui-datagrid-column:hover {
       box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
     }
-    #myFirstWidget .ui-datagrid-content,
-    #myFirstWidget .ui-g {
-      align-items: stretch !important;
-    }
     #myFirstWidget .ui-datagrid-column * {
       overflow-wrap: break-word;
+    }
+
+    @media (max-width: 640px) {
+      #myFirstWidget { padding: 10px; }
+      #myFirstWidget .ui-g { margin: -7px !important; }
+      #myFirstWidget .ui-g > [class*="ui-g-"] {
+        width: 100% !important;
+        padding: 7px !important;
+      }
     }
   </style>
 
   <!-- APPLICATION MODAL -->
-  <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <h3>Apply for a Role</h3>
+  <div class="modal-overlay" id="application-modal" onclick="closeModalOutside(event)">
+    <div class="application-dialog" role="dialog" aria-modal="true" aria-labelledby="application-dialog-title">
+      <a href="#" class="application-dialog-close" aria-label="Close application form" onclick="closeModal()">✕</a>
+      <h3 id="application-dialog-title">Apply for a Role</h3>
       <p class="modal-role" id="modal-role-title">Position</p>
       <div class="contact-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Your Name" />
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="you@email.com" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Phone</label>
-            <input type="tel" placeholder="+91 / +971" />
-          </div>
-          <div class="form-group">
-            <label>Current Location</label>
-            <input type="text" placeholder="City, Country" />
-          </div>
+        <div class="form-group">
+          <label for="application-name">Full Name</label>
+          <input id="application-name" type="text" placeholder="Your full name" required />
         </div>
         <div class="form-group">
-          <label>Years of Experience</label>
-          <select>
-            <option>Less than 1 year</option>
-            <option>1–3 years</option>
-            <option>3–6 years</option>
-            <option>6–10 years</option>
-            <option>10+ years</option>
-          </select>
+          <label for="application-mobile">Mobile Number</label>
+          <input id="application-mobile" type="tel" placeholder="+91 / +971" required />
         </div>
         <div class="form-group">
-          <label>LinkedIn Profile URL</label>
-          <input type="url" placeholder="https://linkedin.com/in/yourprofile" />
+          <label for="application-email">Email Address</label>
+          <input id="application-email" type="email" placeholder="you@email.com" required />
         </div>
         <div class="form-group">
-          <label>Cover Note</label>
-          <textarea rows="4" placeholder="Tell us why you'd be a great fit at Genetic Callnet..."></textarea>
+          <label for="application-resume">Resume</label>
+          <input id="application-resume" type="file" accept=".pdf,.doc,.docx" required />
+          <small class="file-hint">Accepted formats: PDF, DOC, or DOCX.</small>
         </div>
         <button class="btn btn-primary btn-full" id="modal-submit-btn" onclick="handleModalSubmit(this)">Submit Application →</button>
         <p id="modal-success" style="display:none;color:#b89400;margin-top:0.5rem;font-weight:500;text-align:center">✅ Application received! We'll be in touch soon.</p>
@@ -418,9 +495,9 @@
 
   <script src="main.js"></script>
   <script>
-    function openModal(role) {
+    function openApplicationModal(role) {
       document.getElementById('modal-role-title').textContent = role;
-      document.getElementById('modal-overlay').classList.add('open');
+      document.getElementById('application-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
       // reset
       document.getElementById('modal-success').style.display = 'none';
@@ -429,14 +506,34 @@
       btn.disabled = false;
       btn.textContent = 'Submit Application →';
     }
+    var openApplicationButton = document.getElementById('open-application-btn');
+    if (openApplicationButton) {
+      openApplicationButton.addEventListener('click', function () {
+        openApplicationModal('General / Open Application');
+      });
+    }
     function closeModal() {
-      document.getElementById('modal-overlay').classList.remove('open');
+      document.getElementById('application-modal').classList.remove('open');
       document.body.style.overflow = '';
     }
     function closeModalOutside(e) {
-      if (e.target === document.getElementById('modal-overlay')) closeModal();
+      if (e.target === document.getElementById('application-modal')) {
+        closeModal();
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
     }
     function handleModalSubmit(btn) {
+      var fields = [
+        document.getElementById('application-name'),
+        document.getElementById('application-mobile'),
+        document.getElementById('application-email'),
+        document.getElementById('application-resume')
+      ];
+      var firstInvalid = fields.find(function (field) { return !field.checkValidity(); });
+      if (firstInvalid) {
+        firstInvalid.reportValidity();
+        return;
+      }
       btn.textContent = 'Submitting...';
       btn.disabled = true;
       setTimeout(() => {
