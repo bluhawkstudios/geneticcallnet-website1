@@ -97,11 +97,47 @@ if ('IntersectionObserver' in window) {
 }
 
 function handleFormSubmit(btn) {
-  btn.textContent = 'Sending…';
+  const fields = {
+    name: document.getElementById('contact-name'),
+    company: document.getElementById('contact-company'),
+    email: document.getElementById('contact-email'),
+    phone: document.getElementById('contact-phone'),
+    service: document.getElementById('contact-service'),
+    message: document.getElementById('contact-message')
+  };
+
+  const requiredFields = [fields.name, fields.email, fields.phone, fields.service, fields.message];
+  const firstInvalid = requiredFields.find((field) => field && !field.checkValidity());
+  if (firstInvalid) {
+    firstInvalid.reportValidity();
+    return;
+  }
+
+  const text = [
+    'Hello Genetic Callnet,',
+    '',
+    'I would like to discuss a hiring requirement.',
+    '',
+    `Name: ${fields.name.value.trim()}`,
+    `Company: ${fields.company.value.trim() || 'Not provided'}`,
+    `Email: ${fields.email.value.trim()}`,
+    `Phone: ${fields.phone.value.trim()}`,
+    `Service Needed: ${fields.service.value}`,
+    '',
+    `Message: ${fields.message.value.trim()}`
+  ].join('\n');
+
+  btn.textContent = 'Opening WhatsApp…';
   btn.disabled = true;
+  window.open(`https://wa.me/919833936564?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+
   setTimeout(() => {
-    btn.style.display = 'none';
+    btn.textContent = 'Send Message →';
+    btn.disabled = false;
     const msg = document.getElementById('form-success');
-    if (msg) msg.style.display = 'block';
-  }, 900);
+    if (msg) {
+      msg.textContent = '✅ WhatsApp opened with your message. Please tap send to complete.';
+      msg.style.display = 'block';
+    }
+  }, 600);
 }
